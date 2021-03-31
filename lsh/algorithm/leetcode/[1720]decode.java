@@ -1,6 +1,7 @@
-https://leetcode.com/problems/decode-xored-array/description/
+https://leetcode.com/problems/decode-xored-array/
 
-public int[] decode(int[] encoded, int first) {
+class Solution {
+    public int[] decode(int[] encoded, int first) {
         int[] decode = new int[encoded.length + 1];
 		int cnt = 1;
 		decode[0] = first;
@@ -10,4 +11,5 @@ public int[] decode(int[] encoded, int first) {
 		}
 		
 		return decode;
+    }
 }
