@@ -1,0 +1,18 @@
+https://leetcode.com/problems/to-lower-case/
+class Solution {
+    public String toLowerCase(String str) {
+        
+        String temp = "";
+        String result = "";
+        
+        for(int i=0; i<str.length(); i++){
+            if(Character.isUpperCase(str.charAt(i))) {
+                temp = String.valueOf((char)(str.charAt(i)+32));
+                result = result+temp;
+                continue;
+            }
+            result = result+str.charAt(i);
+        }
+        return result; 
+    }
+}
