@@ -1,0 +1,26 @@
+https://leetcode.com/submissions/detail/477313423/
+class Solution {
+    public int maximumWealth(int[][] accounts) {
+     
+        int sum;
+        int result = 0;
+        
+        for(int i=0; i<accounts.length; i++) {
+            sum = 0;
+            for (int j=0; j<accounts[i].length; j++) {
+                sum = sum + accounts[i][j];        
+            }
+            
+            if(result==0){
+                result = sum;
+            } else {
+                if(result <= sum) {
+                    result = sum;
+                } 
+            }
+            System.out.println(sum);
+            
+        }
+        return result;
+    }
+}
