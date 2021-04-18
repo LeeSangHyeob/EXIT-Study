@@ -1,0 +1,23 @@
+class Solution {
+    public boolean canMakeArithmeticProgression(int[] arr) {
+        
+        int tmp = 0;
+        int sum = 0;
+        for(int x=0; x < arr.length; x++){
+            if(x==0) {
+                Arrays.sort(arr);
+            }
+            if(x>0) { 
+                if(x==1) {
+                    tmp = arr[x] - arr[x-1];   
+                } else {
+                    sum = arr[x] - arr[x-1];
+                    if(tmp != sum ) {
+                        return false;
+                    } 
+                }
+            } 
+        }
+        return true;
+    }
+}
