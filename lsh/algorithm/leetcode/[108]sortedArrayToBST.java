@@ -4,7 +4,7 @@ public class sortedArrayToBST {
 
 	public static void main(String[] args) {
 		int[] nums = {-10,-3,0,5,9};
-		System.out.println(sortedArrayToBST(nums));
+		sortedArrayToBST(nums);
 	}
 	
 	public static TreeNode sortedArrayToBST(int[] nums) {
