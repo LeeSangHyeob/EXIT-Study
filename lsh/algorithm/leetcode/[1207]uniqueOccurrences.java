@@ -14,7 +14,6 @@ public class uniqueOccurrences {
 	}
 
 	private static boolean uniqueOccurrences(int[] arr) {
-		int cnt = 0;
 		Map<Integer, Integer> map = new HashMap<Integer, Integer>();
 		Set<Integer> set = new HashSet<>();
 		for (int i : arr) {
