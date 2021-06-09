@@ -5,15 +5,9 @@ class Solution {
         return typeCast(firstWord) + typeCast(secondWord) == typeCast(targetWord);
     }
     
-    public static int typeCast(String str) {
-		char[] arr = str.toCharArray();
-		int ans = 0;
-		int idx = arr.length - 1;
-		int factor = 1;
-		for(int i = idx; i >= 0; i--) {
-			ans += (arr[i] - 'a') * factor;
-			factor *= 10;
-		}
-		return ans;
-	}
+    public int typeCast(String str) {
+	int ans = 0;
+	for(char c: str.toCharArray()) ans = ans * 10 + c - 'a';
+	return ans;
+    }
 }
