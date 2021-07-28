@@ -10,17 +10,17 @@ class Solution {
         
         for(int i = 0; i < magazine.length(); i++){
             if(map.containsKey(magazine.charAt(i))){
-            if(map.get(magazine.charAt(i)) == 1){
-                map.remove(magazine.charAt(i));
-            } else {
-                map.put(magazine.charAt(i), map.get(magazine.charAt(i)) - 1);
+                if(map.get(magazine.charAt(i)) == 1){
+                    map.remove(magazine.charAt(i));
+                } else {
+                    map.put(magazine.charAt(i), map.get(magazine.charAt(i)) - 1);
+                }
+
+                if(map.size() == 0) {
+                    ans = true;
+                    break;
+                }
             }
-            
-            if(map.size() == 0) {
-                ans = true;
-                break;
-            }
-        }
         }
         
         return ans;
