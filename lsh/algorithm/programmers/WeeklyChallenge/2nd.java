@@ -2,7 +2,7 @@ https://programmers.co.kr/learn/courses/30/lessons/83201
 
 class Solution {
     public String solution(int[][] scores) {
-        String answer = "";
+        StringBuilder sb = new StringBuilder();
         
         for(int i = 0; i < scores.length; i++){
             int sum = 0;
@@ -24,23 +24,23 @@ class Solution {
             switch(sum / cnt / 10){
                 case 10:
                 case 9:
-                    answer += "A";
+                    sb.append("A");
                     break;
                 case 8:
-                    answer += "B";
+                    sb.append("B");
                     break;
                 case 7:
-                    answer += "C";
+                    sb.append("C");
                     break;
                 case 6:
                 case 5:
-                    answer += "D";
+                    sb.append("D");
                     break;
                 default:
-                    answer += "F";
+                    sb.append("F");
                     break;
             }
         }
-        return answer;
+        return sb.toString();
     }
 }
