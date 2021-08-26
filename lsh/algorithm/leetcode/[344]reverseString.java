@@ -13,5 +13,16 @@ class Solution {
 		s[i] = s[len-i-1];
 		s[len-i-1] = tmp;
 	}
+	    
+	/* 왜 퇴보했지...ㅋㅋ
+	int lo = 0;
+        int hi = s.length - 1;
+        
+        while (lo < hi){
+            char tmp = s[hi];
+            s[hi--] = s[lo];
+            s[lo++] = tmp;
+        }
+	*/
     }
 }
