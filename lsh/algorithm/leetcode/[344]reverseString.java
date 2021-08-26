@@ -8,10 +8,10 @@ class Solution {
          * 배열의 길이가 홀수일 때, 마지막 교환은 처리하지 않아도 됨
          */
         int len = s.length;
-		for(int i = 0; i < len / 2; i++) {
-			char tmp = s[i];
-			s[i] = s[len-i-1];
-			s[len-i-1] = tmp;
-		}
+	for(int i = 0; i < len / 2; i++) {
+		char tmp = s[i];
+		s[i] = s[len-i-1];
+		s[len-i-1] = tmp;
+	}
     }
 }
