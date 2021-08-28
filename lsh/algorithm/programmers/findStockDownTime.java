@@ -7,23 +7,17 @@ public class findStockDownTime {
 		int cnt = 0;
 		
 		for(int i = 0; i < prices.length - 1; i++) {
-			
 			cnt = 0;
-			
 			for(int j = i + 1; j < prices.length; j++) {
-				
-                cnt++;
-                
+				cnt++;
 				if(prices[i] <= prices[j]) {
-                    continue;
+					continue;
 				} else {
 					break;
 				}
-				
 			}
 			ans[i] = cnt;
 		}
-		
 		ans[prices.length-1] = 0;
 		
 		return ans;
