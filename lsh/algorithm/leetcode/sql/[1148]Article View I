@@ -1,0 +1,5 @@
+https://leetcode.com/problems/article-views-i/description/
+
+SELECT DISTINCT AUTHOR_ID ID FROM VIEWS
+WHERE AUTHOR_ID = VIEWER_ID
+ORDER BY ID;
