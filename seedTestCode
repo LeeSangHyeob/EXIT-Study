@@ -1,0 +1,95 @@
+import java.io.UnsupportedEncodingException;
+
+public class test {
+
+    private static final int BLOCK_SIZE_SEED = 16;
+    private static final int BLOCK_SIZE_SEED_INT = 4;
+
+    public static void main(String[] args) throws UnsupportedEncodingException {
+
+        int[] data;
+        byte[] cdata;
+        int nRetOutLeng[] = new int[] { 0 };
+        int nPaddingLeng[] = new int[] { 0 };
+        int j;
+
+        String key = "1234abcddbca4321";
+        String val = "202402KBM   01011112222 EMSMMS  30000       300012349999333322221111()^^%!@#$maasdf    \n" + "dfefasefsadfefaefsefsfsf";
+
+        byte bszIV[] = {
+                (byte)0x026, (byte)0x08d, (byte)0x066, (byte)0x0a7,
+                (byte)0x035, (byte)0x0a8, (byte)0x01a, (byte)0x081,
+                (byte)0x06f, (byte)0x0ba, (byte)0x0d9, (byte)0x0fa,
+                (byte)0x036, (byte)0x016, (byte)0x025, (byte)0x001
+        };
+
+        byte[] seedKey = key.getBytes("EUC-KR");
+
+        String[] arr = val.split("\n");
+
+        for(String s : arr) {
+            byte[] enc = KISA_SEED_CBC.SEED_CBC_Encrypt(seedKey, bszIV, s.getBytes("EUC-KR"), 0, s.getBytes().length);
+
+            byte[] test = new byte[enc.length+12];
+            System.arraycopy(enc, 0, test, 0, enc.length);
+
+            byte[] pbszCipherText = new byte[test.length];
+            System.arraycopy(test, 0, pbszCipherText, 0, test.length);
+            System.out.println(test.length);
+            byte[] dec = KISA_SEED_CBC.SEED_CBC_Decrypt(seedKey, bszIV, test, 0, test.length);
+
+            KISA_SEED_CBC.KISA_SEED_INFO info = new KISA_SEED_CBC.KISA_SEED_INFO();
+            KISA_SEED_CBC.SEED_CBC_init( info, KISA_SEED_CBC.KISA_ENC_DEC.KISA_DECRYPT, seedKey, bszIV );
+
+            int process_blockLeng = BLOCK_SIZE_SEED * 2;
+
+            int CIPHERTEXT_LENGTH = s.getBytes().length;
+            int pad = 16 - (CIPHERTEXT_LENGTH % 16);
+            System.out.println(s.getBytes("EUC-KR").length);
+            System.out.println(s.getBytes("UTF-8").length);
+            int pbszCipherText_offset = 0;
+
+
+            byte[] message = new byte[CIPHERTEXT_LENGTH + pad];
+            System.arraycopy(pbszCipherText, pbszCipherText_offset, message, 0, CIPHERTEXT_LENGTH + pad);
+
+            int nCipherTextLen = message.length;
+
+            if( (nCipherTextLen%BLOCK_SIZE_SEED) != 0 )
+            {
+                System.out.print("Decryption_FAIL! \n\n");
+            }
+
+            int[] outbuf = new int[process_blockLeng/4];
+
+            byte []newpbszCipherText = new byte[nCipherTextLen];
+            byte []pbszPlainText = new byte[nCipherTextLen];
+
+
+            for(j=0; j<nCipherTextLen - process_blockLeng; )
+            {
+                System.arraycopy(message, j, newpbszCipherText, 0, process_blockLeng);
+                data = KISA_SEED_CBC.chartoint32_for_SEED_CBC(newpbszCipherText, process_blockLeng);
+                KISA_SEED_CBC.SEED_CBC_Process( info, data, process_blockLeng, outbuf, nRetOutLeng );
+                cdata = KISA_SEED_CBC.int32tochar_for_SEED_CBC(outbuf, nRetOutLeng[0]);
+                System.arraycopy(cdata, 0, pbszPlainText, j, nRetOutLeng[0]);
+                j += nRetOutLeng[0];
+            }
+
+            int remainleng =  nCipherTextLen%process_blockLeng;
+            if(remainleng == 0)
+            {
+                remainleng = process_blockLeng;
+            }
+            System.arraycopy(message, j, newpbszCipherText, 0, remainleng);
+            data = KISA_SEED_CBC.chartoint32_for_SEED_CBC(newpbszCipherText, remainleng);
+            KISA_SEED_CBC.SEED_CBC_Process( info, data, remainleng, outbuf, nRetOutLeng );
+            cdata = KISA_SEED_CBC.int32tochar_for_SEED_CBC(outbuf, nRetOutLeng[0]);
+            System.arraycopy(cdata, 0, pbszPlainText, j, nRetOutLeng[0]);
+            j += nRetOutLeng[0];
+
+            System.out.println("DEC : " + new String(pbszPlainText));
+        }
+
+;    }
+}
